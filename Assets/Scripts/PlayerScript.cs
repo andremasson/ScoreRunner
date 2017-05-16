@@ -110,7 +110,7 @@ public class PlayerScript : MonoBehaviour {
             GameControllerScript.instance.points = points;
             scoreText.text = points.ToString();
             Destroy(collision.gameObject);
-            Debug.Log("Pontos! " + points);
+            DebugX.Log("Pontos! " + points);
         }
     }
 }

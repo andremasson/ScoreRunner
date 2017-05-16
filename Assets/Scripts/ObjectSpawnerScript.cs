@@ -8,6 +8,9 @@ public class ObjectSpawnerScript : MonoBehaviour {
     private GameObject[] obstacles;
 
     [SerializeField]
+    private GameObject[] collectables;
+
+    [SerializeField]
     private float defaultSpeed;
 
     [SerializeField]
@@ -15,11 +18,11 @@ public class ObjectSpawnerScript : MonoBehaviour {
     
     private int minX, maxX;
     private float timer;
-    private int lastX, randomPosition;
+    private int lastObstacleX, lastCollectableX, randomPositionObstacle, randomPositionCollectable;
 
     private void Awake()
     {
-        randomPosition = lastX = 0;
+        randomPositionObstacle = lastObstacleX = lastCollectableX = 0;
         timer = 0;
         minX = -2;
         maxX = 3;
@@ -29,14 +32,29 @@ public class ObjectSpawnerScript : MonoBehaviour {
     {
         GameObject block = Instantiate<GameObject>(obstacles[0]);
         Vector2 temp = transform.position;
-        while(randomPosition == lastX)
+        while(randomPositionObstacle == lastObstacleX)
         {
-            randomPosition = Random.Range(minX, maxX);
+            randomPositionObstacle = Random.Range(minX, maxX);
         }
-        temp.x = (float)randomPosition; 
-        lastX = randomPosition;
+        temp.x = (float)randomPositionObstacle; 
+        lastObstacleX = randomPositionObstacle;
         block.transform.position = temp;
-        ((MovingBlockScript)block.GetComponent<MovingBlockScript>()).speed = defaultSpeed;
+        ((MovingObjectScript)block.GetComponent<MovingObjectScript>()).speed = defaultSpeed;
+    }
+    
+    IEnumerator SpawnCollectable()
+    {
+        yield return new WaitForSeconds(spawnSpeed / 2);
+        GameObject coin = Instantiate<GameObject>(collectables[0]);
+        Vector2 temp = transform.position;
+        while (randomPositionCollectable == lastCollectableX)
+        {
+            randomPositionCollectable = Random.Range(minX, maxX);
+        }
+        temp.x = (float)randomPositionCollectable;
+        lastCollectableX = randomPositionCollectable;
+        coin.transform.position = temp;
+        ((CollectableScript)coin.GetComponent<CollectableScript>()).speed = defaultSpeed;
     }
 
     private void Update()
@@ -47,6 +65,7 @@ public class ObjectSpawnerScript : MonoBehaviour {
         if (timer > spawnSpeed)
         {
             SpawnObstacle();
+            StartCoroutine(SpawnCollectable());
             timer = 0;
         }
     }

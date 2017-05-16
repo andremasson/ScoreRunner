@@ -7,13 +7,21 @@ public class HealthDisplayScript : MonoBehaviour {
     [SerializeField]
     public int health;
 
+    [SerializeField]
+    private GameObject[] hearts;
+
     public void SetHealth(int health)
     {
         this.health = health;
 
-        SpriteRenderer thisRenderer = GetComponent<SpriteRenderer>();
-        Vector2 size = thisRenderer.size;
-        size.x = health;
-        thisRenderer.size = size;
+        foreach(GameObject heart in hearts)
+        {
+            heart.SetActive(false);
+        }
+
+        for (int i = 0; i < health; i++)
+        {
+            hearts[i].SetActive(true);
+        }
     }
 }

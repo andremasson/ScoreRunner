@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingBlockScript : MonoBehaviour {
+public class MovingObjectScript : MonoBehaviour {
 
     [SerializeField]
     public float speed;
