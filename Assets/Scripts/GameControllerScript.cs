@@ -6,6 +6,18 @@ public class GameControllerScript : MonoBehaviour {
 
     public static GameControllerScript instance;
 
+    [SerializeField]
+    private GameObject player;
+
+    [SerializeField]
+    private GameObject background;
+
+    [SerializeField]
+    private GameObject objectSpawner;
+
+    [SerializeField]
+    private GameObject startGamePanel;
+
     public bool gameOver;
     public int health;
     public int points;
@@ -21,9 +33,13 @@ public class GameControllerScript : MonoBehaviour {
         } else {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            gameOver = false;
             paused = false;
         }        
+    }
+
+    private void Start()
+    {
+        StartNewGame();
     }
 
     private void Update()
@@ -46,9 +62,23 @@ public class GameControllerScript : MonoBehaviour {
             Time.timeScale = 1f;
             paused = false;
         } else
-        {
+        {            
             Time.timeScale = 0;
             paused = true;
         }
+    }
+    
+    public void StartNewGame()
+    {
+        gameOver = false;
+        paused = false;
+        health = 3;
+        points = 0;
+        ObjectPoolScript.instance.MakePoolInactive();
+        background.GetComponent<ScrollBackgroundScript>().ResetBackground();
+        player.GetComponent<PlayerScript>().ResetPlayer();
+        objectSpawner.GetComponent<ObjectSpawnerScript>().ResetSpawner();
+        startGamePanel.SetActive(true);
+        startGamePanel.GetComponent<GameStartPanelScript>().DisplayCountdown();
     }
 }

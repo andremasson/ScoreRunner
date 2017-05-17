@@ -8,8 +8,8 @@ public class ObjectCollectorScript : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Obstacle")
         {
-            // collision.gameObject.SetActive(false);
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
+            //Destroy(collision.gameObject);
         }
     }
 }

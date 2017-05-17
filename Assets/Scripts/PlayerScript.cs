@@ -21,21 +21,14 @@ public class PlayerScript : MonoBehaviour {
     private float max_x, min_x;
     private Vector2 touchOrigin = -Vector2.one;
 
-    private int health;
-    private int points;
-
-    // Use this for initialization
+    public int health;
+    public int points;
+        
     void Start()
     {
-        health = 3;
-        max_x = 2;
-        min_x = -2;
-        playerCanMove = true;
-        timer = turnSpeed;
-        GameControllerScript.instance.health = health;
+        ResetPlayer();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         timer += Time.deltaTime;
@@ -98,7 +91,7 @@ public class PlayerScript : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Obstacle")
         {
-            Debug.Log("Dano!");
+            DebugX.Log("Dano!");
             health--;
             healthDisplay.SetHealth(health);
             GameControllerScript.instance.health = health;
@@ -109,8 +102,21 @@ public class PlayerScript : MonoBehaviour {
             points += item.points;
             GameControllerScript.instance.points = points;
             scoreText.text = points.ToString();
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
             DebugX.Log("Pontos! " + points);
         }
+    }
+
+    public void ResetPlayer()
+    {
+        health = 3;
+        points = 0;
+        max_x = 2;
+        min_x = -2;
+        playerCanMove = true;
+        healthDisplay.SetHealth(health);
+        scoreText.text = points.ToString();
+        GameControllerScript.instance.health = health;
+        timer = turnSpeed;
     }
 }

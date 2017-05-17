@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class ObjectSpawnerScript : MonoBehaviour {
 
+    /*
     [SerializeField]
-    private GameObject[] obstacles;
+    public GameObject[] obstacles;
 
     [SerializeField]
-    private GameObject[] collectables;
+    public GameObject[] collectables;
+    */
 
     [SerializeField]
     private float defaultSpeed;
@@ -22,15 +24,15 @@ public class ObjectSpawnerScript : MonoBehaviour {
 
     private void Awake()
     {
-        randomPositionObstacle = lastObstacleX = lastCollectableX = 0;
-        timer = 0;
+        ResetSpawner();
         minX = -2;
         maxX = 3;
     }
     
     private void SpawnObstacle()
     {
-        GameObject block = Instantiate<GameObject>(obstacles[0]);
+        //GameObject block = Instantiate<GameObject>(obstacles[0]);
+        GameObject block = ObjectPoolScript.instance.GetObstacle();
         Vector2 temp = transform.position;
         while(randomPositionObstacle == lastObstacleX)
         {
@@ -45,7 +47,8 @@ public class ObjectSpawnerScript : MonoBehaviour {
     IEnumerator SpawnCollectable()
     {
         yield return new WaitForSeconds(spawnSpeed / 2);
-        GameObject coin = Instantiate<GameObject>(collectables[0]);
+        //GameObject coin = Instantiate<GameObject>(collectables[0]);
+        GameObject coin = ObjectPoolScript.instance.GetCollectable();
         Vector2 temp = transform.position;
         while (randomPositionCollectable == lastCollectableX)
         {
@@ -68,5 +71,11 @@ public class ObjectSpawnerScript : MonoBehaviour {
             StartCoroutine(SpawnCollectable());
             timer = 0;
         }
+    }
+
+    public void ResetSpawner()
+    {
+        randomPositionObstacle = lastObstacleX = lastCollectableX = 0;
+        timer = -1f;
     }
 }

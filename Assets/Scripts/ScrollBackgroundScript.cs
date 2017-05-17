@@ -21,7 +21,13 @@ public class ScrollBackgroundScript: MonoBehaviour {
 
         Vector2 offset = material.mainTextureOffset;
         offset.y = offset.y - (speed * Time.deltaTime);
-        material.mainTextureOffset = offset;        
+        material.mainTextureOffset = offset;
     }
 
+    public void ResetBackground()
+    {
+        Vector2 offset = material.mainTextureOffset;
+        offset.y = 0;
+        material.mainTextureOffset = offset;
+    }
 }
