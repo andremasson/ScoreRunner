@@ -31,7 +31,6 @@ public class GameControllerScript : MonoBehaviour {
 
     private float initialSpeed;
     private float playTime;
-    private bool paused;
 
     private void Awake()
     {
@@ -42,7 +41,7 @@ public class GameControllerScript : MonoBehaviour {
         } else {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            paused = false;
+            gamePaused = false;
             initialSpeed = gameSpeed;
             playTime = 0f;
         }        
@@ -55,6 +54,8 @@ public class GameControllerScript : MonoBehaviour {
 
     private void Update()
     {
+        if (gameOver) return;
+
         if (health <= 0)
         {
             gameOver = true;
@@ -95,7 +96,7 @@ public class GameControllerScript : MonoBehaviour {
     public void StartNewGame()
     {
         gameOver = false;
-        paused = false;
+        gamePaused = false;
         health = 3;
         points = 0;
         gameSpeed = initialSpeed;

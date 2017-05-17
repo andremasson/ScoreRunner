@@ -103,6 +103,7 @@ public class PlayerScript : MonoBehaviour {
             CollectableScript item = collision.gameObject.GetComponent<CollectableScript>();
             points += item.points;
             GameControllerScript.instance.points = points;
+            HighscoreScript.SetScore(points);
             scoreText.text = points.ToString();
             collision.gameObject.SetActive(false);
             DebugX.Log("Pontos! " + points);
