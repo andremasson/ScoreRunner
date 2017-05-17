@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MovingObjectScript : MonoBehaviour {
-
-    [SerializeField]
-    public float speed;
-
+    
 	// Use this for initialization
 	void Start () {
 		
@@ -16,7 +13,7 @@ public class MovingObjectScript : MonoBehaviour {
         if (GameControllerScript.instance.gameOver) return;
 
         Vector2 temp = transform.position;
-        temp.y -= speed * Time.deltaTime;
+        temp.y -= GameControllerScript.instance.gameSpeed * Time.deltaTime;
         transform.position = temp;
 	}
 }

@@ -67,14 +67,16 @@ public class PlayerScript : MonoBehaviour {
     private void MovePlayer(float direction)
     {
         if (timer < turnSpeed) return;
-
-        Vector2 temp = transform.position;
-        temp.x += direction;
-        if (temp.x > max_x) temp.x = max_x;
-        if (temp.x < min_x) temp.x = min_x;
-        transform.position = temp;
-
         timer = 0;
+
+        if (playerCanMove)
+        {
+            Vector2 temp = transform.position;
+            temp.x += direction;
+            if (temp.x > max_x) temp.x = max_x;
+            if (temp.x < min_x) temp.x = min_x;
+            transform.position = temp;
+        }
     }
 
     public void MoveRight()

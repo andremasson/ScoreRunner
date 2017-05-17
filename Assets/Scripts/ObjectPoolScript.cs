@@ -5,84 +5,60 @@ using UnityEngine;
 public class ObjectPoolScript : MonoBehaviour {
 
     public static ObjectPoolScript instance;
-
+    
     [SerializeField]
-    public GameObject[] obstaclesPrefabs;
-
+    public GameObject[] objectsPrefabs;
+    
     [SerializeField]
-    public GameObject[] collectablesPrefabs;
-
-    [SerializeField]
-    private int obstaclePoolSize;
-
-    [SerializeField]
-    private int collectablesPoolSize;
-
-    private List<GameObject> obstaclesPool;
-    private List<GameObject> collectablesPool;
-
-    void Start () {
+    public int poolInitialSize;
+    
+    private List<GameObject>[] objectsPool;
+    
+    private void Awake()
+    {
         instance = this;
-        obstaclesPool = new List<GameObject>();
-        collectablesPool = new List<GameObject>();
 
-        foreach(GameObject obj in obstaclesPrefabs)
+        objectsPool = new List<GameObject>[objectsPrefabs.Length];
+
+        for (int type = 0; type < objectsPrefabs.Length; type++)
         {
-            for(int i = 0; i < obstaclePoolSize; i++)
+            objectsPool[type] = new List<GameObject>();
+            for (int i = 0; i < poolInitialSize; i++)
             {
-                GameObject newObject = Instantiate<GameObject>(obj);
+                GameObject newObject = AddToPoolAndReturnObject(type);
                 newObject.SetActive(false);
-                obstaclesPool.Add(newObject);
             }
         }
+    }
 
-        foreach (GameObject obj in collectablesPrefabs)
-        {
-            for (int i = 0; i < collectablesPoolSize; i++)
-            {
-                GameObject newObject = Instantiate<GameObject>(obj);
-                newObject.SetActive(false);
-                collectablesPool.Add(newObject);
-            }
-        }
-        DebugX.Log("E ae?");
-    }		
-
-    public GameObject GetObstacle()
+    private GameObject AddToPoolAndReturnObject(int type)
     {
-        foreach(GameObject obj in obstaclesPool)
+        GameObject newObject = Instantiate<GameObject>(objectsPrefabs[type]);
+        objectsPool[type].Add(newObject);
+        return newObject;
+    }
+
+    public GameObject GetObject(int type)
+    {
+        foreach (GameObject obj in objectsPool[type])
         {
-            if (!obj.activeSelf)
+            if (!obj.activeInHierarchy)
             {
                 obj.SetActive(true);
                 return obj;
             }
         }
-        return null;
+        return AddToPoolAndReturnObject(type);
     }
-
-    public GameObject GetCollectable()
-    {
-        foreach (GameObject obj in collectablesPool)
-        {
-            if (!obj.activeSelf)
-            {
-                obj.SetActive(true);
-                return obj;
-            }
-        }
-        return null;
-    }
-
+    
     public void MakePoolInactive()
     {
-        foreach (GameObject obj in obstaclesPool)
+        for (int type = 0; type < objectsPrefabs.Length; type++)
         {
-            obj.SetActive(false);
-        }
-        foreach (GameObject obj in collectablesPool)
-        {
-            obj.SetActive(false);
+            foreach (GameObject obj in objectsPool[type])
+            {
+                obj.SetActive(false);
+            }
         }
     }
 }

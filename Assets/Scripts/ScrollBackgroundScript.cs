@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScrollBackgroundScript: MonoBehaviour {
-    
-    [SerializeField]
-    private float speed;
-    
+        
     private Material material;
 
     private void Awake()
@@ -20,7 +17,7 @@ public class ScrollBackgroundScript: MonoBehaviour {
         if (GameControllerScript.instance.gameOver) return;
 
         Vector2 offset = material.mainTextureOffset;
-        offset.y = offset.y - (speed * Time.deltaTime);
+        offset.y = offset.y - ((GameControllerScript.instance.gameSpeed+1f) * Time.deltaTime);
         material.mainTextureOffset = offset;
     }
 

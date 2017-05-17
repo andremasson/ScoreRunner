@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class ObjectSpawnerScript : MonoBehaviour {
 
+    public enum ObjectType
+    {
+        WALL,
+        COIN
+    };
+
     /*
     [SerializeField]
     public GameObject[] obstacles;
@@ -32,7 +38,7 @@ public class ObjectSpawnerScript : MonoBehaviour {
     private void SpawnObstacle()
     {
         //GameObject block = Instantiate<GameObject>(obstacles[0]);
-        GameObject block = ObjectPoolScript.instance.GetObstacle();
+        GameObject block = ObjectPoolScript.instance.GetObject((int)ObjectType.WALL);
         Vector2 temp = transform.position;
         while(randomPositionObstacle == lastObstacleX)
         {
@@ -41,14 +47,13 @@ public class ObjectSpawnerScript : MonoBehaviour {
         temp.x = (float)randomPositionObstacle; 
         lastObstacleX = randomPositionObstacle;
         block.transform.position = temp;
-        ((MovingObjectScript)block.GetComponent<MovingObjectScript>()).speed = defaultSpeed;
     }
     
     IEnumerator SpawnCollectable()
     {
         yield return new WaitForSeconds(spawnSpeed / 2);
         //GameObject coin = Instantiate<GameObject>(collectables[0]);
-        GameObject coin = ObjectPoolScript.instance.GetCollectable();
+        GameObject coin = ObjectPoolScript.instance.GetObject((int)ObjectType.COIN);
         Vector2 temp = transform.position;
         while (randomPositionCollectable == lastCollectableX)
         {
@@ -57,7 +62,6 @@ public class ObjectSpawnerScript : MonoBehaviour {
         temp.x = (float)randomPositionCollectable;
         lastCollectableX = randomPositionCollectable;
         coin.transform.position = temp;
-        ((CollectableScript)coin.GetComponent<CollectableScript>()).speed = defaultSpeed;
     }
 
     private void Update()

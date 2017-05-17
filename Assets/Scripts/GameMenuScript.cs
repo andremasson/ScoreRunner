@@ -2,27 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseMenuScript : MonoBehaviour {
-
-    [SerializeField]
-    private GameObject pausePanel;
-
-    private bool paused;
+public class GameMenuScript : MonoBehaviour {
+    
+    private bool showMenu;
     
     public void Pause()
     {        
-        paused = !paused;
-        DebugX.Log("PAUSA: " + paused);
-        gameObject.SetActive(paused);
+        showMenu = true;
+        DebugX.Log("PAUSA: " + showMenu);
+        gameObject.SetActive(showMenu);
         GameControllerScript.instance.Pause();
+    }
+
+    public void Resume()
+    {
+        showMenu = false;
+        DebugX.Log("PAUSA: " + showMenu);
+        gameObject.SetActive(showMenu);
+        GameControllerScript.instance.Unpause();
     }
     
     public void Restart()
     {
-        paused = !paused;
+        showMenu = false;
         DebugX.Log("RESTART");
-        gameObject.SetActive(paused);
-        GameControllerScript.instance.Pause();
+        gameObject.SetActive(showMenu);
+        GameControllerScript.instance.Unpause();
         GameControllerScript.instance.StartNewGame();
     }
 

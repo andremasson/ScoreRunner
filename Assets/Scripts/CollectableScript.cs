@@ -15,7 +15,7 @@ public class CollectableScript : MonoBehaviour {
         if (GameControllerScript.instance.gameOver) return;
 
         Vector2 temp = transform.position;
-        temp.y -= speed * Time.deltaTime;
+        temp.y -= GameControllerScript.instance.gameSpeed * Time.deltaTime;
         transform.position = temp;
     }
 }
