@@ -18,6 +18,7 @@ public class ScrollBackgroundScript: MonoBehaviour {
 
         Vector2 offset = material.mainTextureOffset;
         offset.y = offset.y - ((GameControllerScript.instance.gameSpeed+1f) * Time.deltaTime);
+        offset.y = offset.y - GameControllerScript.instance.gameSpeed ;
         material.mainTextureOffset = offset;
     }
 

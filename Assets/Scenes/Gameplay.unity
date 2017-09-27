@@ -424,6 +424,52 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76d6efcba8d89c541b10a243b5d24f3f, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &333028147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 333028149}
+  - component: {fileID: 333028148}
+  m_Layer: 0
+  m_Name: GameplayManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &333028148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 333028147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119e3194a55e0274e9447ecd8192cf71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1788158725}
+  background: {fileID: 2063620497}
+  objectSpawner: {fileID: 1345766795}
+  startGamePanel: {fileID: 1588464155}
+  gameOverPanel: {fileID: 1533040103}
+  gameSpeed: 3
+--- !u!4 &333028149
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 333028147}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.2628427, y: 0.0039109252, z: -8.349609}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &377793738
 GameObject:
   m_ObjectHideFlags: 0

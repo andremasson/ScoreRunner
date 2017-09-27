@@ -14,6 +14,7 @@ public class MovingObjectScript : MonoBehaviour {
 
         Vector2 temp = transform.position;
         temp.y -= GameControllerScript.instance.gameSpeed * Time.deltaTime;
+        //temp.y -= GameControllerScript.instance.gameSpeed;
         transform.position = temp;
 	}
 }

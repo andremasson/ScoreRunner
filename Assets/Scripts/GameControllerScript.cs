@@ -6,22 +6,16 @@ public class GameControllerScript : MonoBehaviour {
 
     public static GameControllerScript instance;
 
-    [SerializeField]
-    private GameObject player;
+    public GameObject player;
 
-    [SerializeField]
-    private GameObject background;
+    public GameObject background;
 
-    [SerializeField]
-    private GameObject objectSpawner;
+    public GameObject objectSpawner;
 
-    [SerializeField]
-    private GameObject startGamePanel;
+    public GameObject startGamePanel;
 
-    [SerializeField]
-    private GameObject gameOverPanel;
+    public GameObject gameOverPanel;
 
-    [SerializeField]
     public float gameSpeed;
 
     public bool gameOver;
@@ -29,12 +23,13 @@ public class GameControllerScript : MonoBehaviour {
     public int points;
     public bool gamePaused;
 
-    private float initialSpeed;
+    public float initialSpeed;
     private float playTime;
 
     private void Awake()
     {
-        
+        instance = this;
+        /*
         if (instance != null)
         {
             Destroy(gameObject);
@@ -43,13 +38,13 @@ public class GameControllerScript : MonoBehaviour {
             DontDestroyOnLoad(gameObject);
             gamePaused = false;
             initialSpeed = gameSpeed;
-            playTime = 0f;
-        }        
+        } 
+        */
     }
 
     private void Start()
     {
-        StartNewGame();
+        
     }
 
     private void Update()
@@ -96,9 +91,8 @@ public class GameControllerScript : MonoBehaviour {
     public void StartNewGame()
     {
         gameOver = false;
-        gamePaused = false;
         health = 3;
-        points = 0;
+        points = 0;        
         gameSpeed = initialSpeed;
         playTime = 0f;
         ObjectPoolScript.instance.MakePoolInactive();
@@ -107,5 +101,6 @@ public class GameControllerScript : MonoBehaviour {
         objectSpawner.GetComponent<ObjectSpawnerScript>().ResetSpawner();
         startGamePanel.SetActive(true);
         startGamePanel.GetComponent<GameStartPanelScript>().DisplayCountdown();
+        Unpause();
     }
 }

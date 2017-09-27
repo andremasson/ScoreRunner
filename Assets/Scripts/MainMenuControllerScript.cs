@@ -26,7 +26,6 @@ public class MainMenuControllerScript : MonoBehaviour {
 
     private void OnEnable()
     {
-        DebugX.Log("CARREGOU algo");
         highscoreText.text = HighscoreScript.GetHighscore().ToString();
     }
 }

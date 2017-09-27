@@ -33,7 +33,9 @@ public class GameStartPanelScript : MonoBehaviour {
     IEnumerator Count()
     {
         getReady.SetActive(false);
+        go.SetActive(false);
         count.gameObject.SetActive(true);
+        count.StopPlayback();
         count.Play("Count", -1, 0f);
         yield return new WaitForSeconds(3);
         StartCoroutine(Go());
@@ -42,6 +44,7 @@ public class GameStartPanelScript : MonoBehaviour {
     IEnumerator Go()
     {
         count.gameObject.SetActive(false);
+        getReady.SetActive(false);
         go.SetActive(true);
         yield return new WaitForSeconds(1);
         go.SetActive(false);
